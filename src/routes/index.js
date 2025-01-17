@@ -14,6 +14,7 @@ const SettingsView = React.lazy(() => import('../views/Admin/SettingsView'));
 const ProfileView = React.lazy(() => import('../views/Admin/Profileview'));
 const LendDevices = React.lazy(() => import('../views/Admin/LendDevices'));
 const AddCabinet = React.lazy(() => import('../views/Admin/AddCabinet'));
+const StudentList = React.lazy(() => import('../views/Admin/Students'));
 const AddCategory = React.lazy(() => import('../views/Admin/AddCategory'));
 const AddShelf = React.lazy(() => import('../views/Admin/AddShelf'));
 const Category = React.lazy(() => import('../views/Admin/Category'));
@@ -41,6 +42,7 @@ export const routes = [
       { path: 'cabinets-view/:id', element: <CabinetView /> },
       { path: 'category/:id/:cabinet_id/:category_id', element: <Category /> },
       { path: 'add-door/:id/:cabinet_id/:category_id', element: <AddDoor /> },
+      { path: 'students', element: <StudentList /> },
       { path: 'reports', element: <ReportsView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: 'profile', element: <ProfileView /> },

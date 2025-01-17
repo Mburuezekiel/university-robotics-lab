@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const AreaPage = () => {
+const CabinetView = () => {
   const [loading, setLoading] = useState(false);
 
   // Static data
@@ -170,4 +170,4 @@ const AreaPage = () => {
   );
 };
 
-export default AreaPage;
+export default CabinetView;

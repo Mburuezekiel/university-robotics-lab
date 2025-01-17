@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BreadCrumb from '../../components/BreadCrumb/Breadcrumb';
 
 // Static data for student options
 const studentOptions = [
@@ -9,15 +10,6 @@ const studentOptions = [
 ];
 
 // Breadcrumb Component
-const Breadcrumb = ({ pageTitle }) => (
-  <nav aria-label="breadcrumb">
-    <ol className="breadcrumb">
-      <li className="breadcrumb-item"><Link to="/dashboard">Dashboard</Link></li>
-      <li className="breadcrumb-item active" aria-current="page">{pageTitle}</li>
-    </ol>
-  </nav>
-);
-
 // TextField Component
 const TextField = ({ label, value, onChange, type = "text", placeholder }) => (
   <div className="mb-3">
@@ -32,7 +24,7 @@ const TextField = ({ label, value, onChange, type = "text", placeholder }) => (
   </div>
 );
 
-const LendItemForm = () => {
+const LendDevices = () => {
   const [formData, setFormData] = useState({
     selectedStudent: '',
     studentName: '',
@@ -69,7 +61,7 @@ const LendItemForm = () => {
 
   return (
     <div className="container-fluid mt-4">
-      <Breadcrumb pageTitle="Lend Item" />
+      <BreadCrumb pageTitle="Lend Item" />
 
       <form onSubmit={handleSubmit}>
         <div className="card shadow-sm mb-4">
@@ -170,4 +162,4 @@ const LendItemForm = () => {
   );
 };
 
-export default LendItemForm;
+export default LendDevices;

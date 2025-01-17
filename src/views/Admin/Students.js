@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import BreadCrumb from '../../components/BreadCrumb/Breadcrumb';
 // Static data to replace API calls
 const STATIC_STUDENTS = [
   { id: 1, name: "John Doe", email: "john@example.com", phone: "555-0101" },
@@ -51,7 +51,7 @@ const StudentList = () => {
       
       <div className="row">
         <div className="col-12">
-          <Breadcrumb pageTitle="All Students" />
+          <BreadCrumb pageTitle="All Students" />
           
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2 className="h4 mb-0">All Students</h2>

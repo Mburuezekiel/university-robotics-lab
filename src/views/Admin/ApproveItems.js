@@ -2,14 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Table, Badge, Button, Card, Toast } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const Breadcrumb = ({ pageTitle }) => (
-  <nav aria-label="breadcrumb">
-    <ol className="breadcrumb">
-      <li className="breadcrumb-item"><a href="/">Home</a></li>
-      <li className="breadcrumb-item active" aria-current="page">{pageTitle}</li>
-    </ol>
-  </nav>
-);
+import BreadCrumb from '../../components/BreadCrumb/Breadcrumb';
+
 
 const ApprovedItems = () => {
   const navigate = useNavigate();
@@ -83,7 +77,7 @@ const ApprovedItems = () => {
 
   return (
     <div className="area mt-2">
-      <Breadcrumb pageTitle="Approved Items" />
+      <BreadCrumb pageTitle="Approved Items" />
 
       <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
         <Toast 
@@ -103,10 +97,7 @@ const ApprovedItems = () => {
           <div className="d-flex justify-content-between align-items-center mb-4">
             <Card.Title className="mb-0">Approved Items</Card.Title>
             <div className="d-flex gap-2">
-              <Button variant="success" size="sm" className="d-flex align-items-center">
-                <i className="fa-solid fa-plus me-2"></i>
-                Lend Devices
-              </Button>
+              
             </div>
           </div>
 

@@ -4,12 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import IotCard from '../../components/Card/IotCard';
+import BreadCrumb from "../../components/BreadCrumb/Breadcrumb";
 // import { CardArea,CardLoc, CardTitle, CardCategory, CardContent, CardContent2 } from '../../components/Card';
 // Static data to replace API calls
 const staticItems = [
   {
     id: 1,
-    equipment_room: "Lab A",
+    equipment_room: "TF105",
     equipment_location: "First Floor",
     equipment_type: "Microscope",
     equipment_category: "Optical",
@@ -18,7 +19,7 @@ const staticItems = [
   },
   {
     id: 2,
-    equipment_room: "Lab B",
+    equipment_room: "TF103",
     equipment_location: "Second Floor",
     equipment_type: "Centrifuge",
     equipment_category: "Processing",
@@ -36,7 +37,7 @@ const staticItems = [
   },
   {
     id: 4,
-    equipment_room: "Lab C",
+    equipment_room: "TF108",
     equipment_location: "Third Floor",
     equipment_type: "Incubator",
     equipment_category: "Environmental",
@@ -46,14 +47,6 @@ const staticItems = [
 ];
 
 // Breadcrumb Component
-const Breadcrumb = ({ pageTitle }) => (
-  <nav aria-label="breadcrumb">
-    <ol className="breadcrumb">
-      <li className="breadcrumb-item"><Link to="/dashboard">Dashboard</Link></li>
-      <li className="breadcrumb-item active" aria-current="page">{pageTitle}</li>
-    </ol>
-  </nav>
-);
 
 // Card Component
 const IotDevices = ({ CardArea, CardLoc, CardTitle, CardCategory, CardContent, CardContent2 }) => (
@@ -104,7 +97,7 @@ const GeneralItems = () => {
     <div className="container-fluid mt-4">
       <div className="row">
         <div className="col-12">
-          <Breadcrumb pageTitle="General Items" />
+          <BreadCrumb pageTitle="General Items" />
           
           <div className="d-flex justify-content-end mb-4">
             <Link to="/dashboard/add-item" className="btn btn-success btn-sm">

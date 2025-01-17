@@ -21,7 +21,7 @@ const BreadcrumbHeader = ({ pageTitle }) => {
             </a>
           </li>
           <li className="breadcrumb-item">
-            <a href="/robotics-lab" className="text-white text-decoration-none">
+            <a href="" className="text-white text-decoration-none">
               Robotics Lab
             </a>
           </li>

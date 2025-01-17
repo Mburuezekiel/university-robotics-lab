@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import BreadCrumb from '../../components/BreadCrumb/Breadcrumb';
 // Static data to replace API calls
 const staticBorrowedItems = [
   {
@@ -39,16 +39,6 @@ const staticBorrowedItems = [
 ];
 
 // Breadcrumb Component
-const Breadcrumb = ({ pageTitle }) => {
-  return (
-    <nav aria-label="breadcrumb">
-      <ol className="breadcrumb">
-        <li className="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-        <li className="breadcrumb-item active" aria-current="page">{pageTitle}</li>
-      </ol>
-    </nav>
-  );
-};
 
 const BorrowedItems = () => {
   const { email } = useParams();
@@ -88,7 +78,7 @@ const BorrowedItems = () => {
 
   return (
     <div className="area mt-4">
-      <Breadcrumb pageTitle={`Items Borrowed By ${email}`} />
+      <BreadCrumb pageTitle={`Items Borrowed By ${email}`} />
       
       <div className="card shadow-sm">
         <div className="card-body">
