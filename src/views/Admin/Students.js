@@ -12,14 +12,6 @@ const STATIC_STUDENTS = [
   { id: 4, name: "Sarah Williams", email: "sarah@example.com", phone: "555-0104" },
 ];
 
-const Breadcrumb = ({ pageTitle }) => (
-  <nav aria-label="breadcrumb">
-    <ol className="breadcrumb">
-      <li className="breadcrumb-item"><a href="/">Home</a></li>
-      <li className="breadcrumb-item active" aria-current="page">{pageTitle}</li>
-    </ol>
-  </nav>
-);
 
 const Button = ({ children, className }) => (
   <button className={`btn ${className}`}>
@@ -31,13 +23,13 @@ const StudentList = () => {
   const navigate = useNavigate();
 
   const handleViewStudent = (email) => {
-    navigate(`/student/${email}`);
+    navigate(`/borrowed`);
     toast.success('Navigating to student details', {
       position: "bottom-right",
       autoClose: 3000
     });
   };
-
+ 
   const handleAddStudent = () => {
     toast.info('Add student functionality coming soon!', {
       position: "bottom-right",

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import BreadCrumb from '../../components/BreadCrumb/Breadcrumb';
 // Static data to replace API calls
 const staticBorrowedItems = [
   {
@@ -72,7 +72,7 @@ const LendView = () => {
     <div className="container-fluid mt-4">
       <div className="row">
         <div className="col-12">
-          <Breadcrumb pageTitle="Borrowed Items" />
+          <BreadCrumb pageTitle="Borrowed Items" />
 
           <div className="d-flex justify-content-end mb-4">
             <Link
