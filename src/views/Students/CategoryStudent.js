@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-
+import BreadCrumb from '../../components/BreadCrumb/Breadcrumb';
 // Mock data
 const mockData = {
   name: "Cabinet Section A",
@@ -65,14 +65,8 @@ const CategoryStudent = () => {
   return (
     <div className="area mt-2">
       {/* Breadcrumb */}
-      <nav aria-label="breadcrumb" className="mb-4">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <Link to="/" className="text-decoration-none">Home</Link>
-          </li>
-          <li className="breadcrumb-item active">Category</li>
-        </ol>
-      </nav>
+      <BreadCrumb pageTitle="Category" />
+      
 
       <div className="row">
         {/* Section Title */}
