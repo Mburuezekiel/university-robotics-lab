@@ -43,13 +43,13 @@ const Navbar = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <Link className="navbar-brand mt-2 mt-lg-0" to="#">
+            <Link className="navbar-brand mt-2 mt-lg-0" to="/">
               <i className="fa-2x text-white fas fa-robot"></i>
             </Link>
 
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link fw-bold text-white" to="#">
+                <Link className="nav-link fw-bold text-white" to="/">
                   University of Oulu Robotics Lab
                 </Link>
               </li>

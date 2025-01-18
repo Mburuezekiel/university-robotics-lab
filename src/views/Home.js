@@ -1,48 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import Navbar from '../layouts/Admin/Navbar/NavBar';
-import Sidebar from '../layouts/Sidenav';
 import Footer from '../components/Footer/Footer';
-import BreadCrumb from '../components/BreadCrumb/Breadcrumb';
-// Static data for items
-const staticItems = [
-  {
-    id: 1,
-    equipment_room: "Lab Room A",
-    equipment_location: "Section 1",
-    equipment_type: "Industrial Robots",
-    equipment_category: "Robotics",
-    status: "Available",
-    lastUsed: "2024-01-15",
-    utilization: 85,
-  },
-  {
-    id: 2,
-    equipment_room: "Lab Room B",
-    equipment_location: "Section 2",
-    equipment_type: "Collaborative Robots",
-    equipment_category: "Automation",
-    status: "In Use",
-    lastUsed: "2024-01-16",
-    utilization: 92,
-  },
-  {
-    id: 3,
-    equipment_room: "Lab Room C",
-    equipment_location: "Section 3",
-    equipment_type: "Mobile Robots",
-    equipment_category: "Navigation",
-    status: "Maintenance",
-    lastUsed: "2024-01-14",
-    utilization: 78,
-  },
-];
+import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// Enhanced IotCard Component
+const Navbar = () => {
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg bg-nav" style={{ borderBottom: '1px solid white' }}>
+        <div className="container">
+          <button className="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+            <i className="fas fa-bars"></i>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <Link className="navbar-brand mt-2 mt-lg-0" to="/">
+              <i className="fa-2x text-white fas fa-robot"></i>
+            </Link>
+
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                
+                <Link className="nav-link text-bold fw-bold me-hover" to="/">
+                  University of Oulu Robotics Lab
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <Link className="nav-link text-bold fw-bold bth" to="#">Menu</Link>
+          </div>
+        </div>
+      </nav>
+
+      <nav className="navbar navbar-expand-lg bg-nav">
+        <div className="container">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <div className="navbar-brand mt-2 mt-lg-0"></div>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+          </div>
+          <div className="d-flex align-items-center">
+            <Link className="nav-link text-bold bth fw-bold" to="dashboard/student">For Students</Link>
+            <Link className="nav-link text-bold ms-2 bth fw-bold" to="/dashboard/dashboard">For Staff</Link>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
+
 const IotCard = ({ CardArea, CardLoc, CardTitle, CardCategory, status, lastUsed, utilization }) => {
   const getStatusBadgeClass = (status) => {
-    switch (status.toLowerCase()) {
+    switch (status?.toLowerCase()) {
       case 'available': return 'bg-success';
       case 'in use': return 'bg-primary';
       case 'maintenance': return 'bg-warning';
@@ -75,22 +89,24 @@ const IotCard = ({ CardArea, CardLoc, CardTitle, CardCategory, status, lastUsed,
             {CardCategory}
           </p>
         </div>
-        <div className="mt-3">
-          <label className="form-label d-flex justify-content-between mb-1">
-            <small>Utilization</small>
-            <small>{utilization}%</small>
-          </label>
-          <div className="progress" style={{ height: "6px" }}>
-            <div 
-              className="progress-bar bg-primary" 
-              role="progressbar" 
-              style={{ width: `${utilization}%` }}
-              aria-valuenow={utilization} 
-              aria-valuemin="0" 
-              aria-valuemax="100"
-            ></div>
+        {utilization && (
+          <div className="mt-3">
+            <label className="form-label d-flex justify-content-between mb-1">
+              <small>Utilization</small>
+              <small>{utilization}%</small>
+            </label>
+            <div className="progress" style={{ height: "6px" }}>
+              <div 
+                className="progress-bar bg-primary" 
+                role="progressbar" 
+                style={{ width: `${utilization}%` }}
+                aria-valuenow={utilization} 
+                aria-valuemin="0" 
+                aria-valuemax="100"
+              ></div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="card-footer bg-transparent border-0">
         <div className="d-flex justify-content-end">
@@ -108,197 +124,122 @@ const IotCard = ({ CardArea, CardLoc, CardTitle, CardCategory, status, lastUsed,
   );
 };
 
-// Main Component
 const Home = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [viewMode, setViewMode] = useState('grid');
 
   useEffect(() => {
-    const loadData = () => {
-      setLoading(true);
-      setTimeout(() => {
-        setItems(staticItems);
+    const fetchItems = async () => {
+      try {
+        const response = await fetch('https://robo-rend-api.onrender.com/api/inventory/equipment');
+        const data = await response.json();
+        setTimeout(() => {
+          setItems(data);
+          setLoading(false);
+          toast.success('Items Fetched Successfully!');
+        }, 1000);
+      } catch (error) {
+        console.error(error);
+        toast.error('An Error Occurred!');
         setLoading(false);
-        toast.success("Items loaded successfully!");
-      }, 1000);
+      }
     };
-    loadData();
+
+    fetchItems();
   }, []);
 
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
 
-      <div className="d-flex flex-grow-1">
-        <div className="sidebar-container">
-          <Sidebar />
+      <div className="container mt-4">
+        <div className="p-4 bg-white mb-4 rounded-3 shadow-sm">
+          <h1>Robo Lend</h1>
+          <nav className="d-flex">
+            <h6 className="mb-0">
+              <Link to="/" className="text-reset">Home</Link>
+              <span>/</span>
+              <Link to="/" className="text-reset">Robotics Lab</Link>
+              <span>/</span>
+              <Link to="/" className="text-reset">Robo Lend</Link>
+            </h6>
+          </nav>
         </div>
 
-        <div className="main-content flex-grow-1">
-          <div className="container-fluid p-4">
-            {/* Header Section */}
-            <div className="bg-white rounded-3 shadow-sm p-4 mb-4">
-            <BreadCrumb pageTitle="Robo Lend" />
-            </div>
-
-            {/* Stats Section */}
-            <div className="row g-3 mb-4">
-              <div className="col-md-3">
-                <div className="bg-white p-3 rounded-3 shadow-sm">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
-                      <i className="fas fa-robot text-primary fs-4"></i>
-                    </div>
-                    <div>
-                      <h6 className="mb-1">Total Items</h6>
-                      <h4 className="mb-0">24</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="bg-white p-3 rounded-3 shadow-sm">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-success bg-opacity-10 p-3 rounded-3 me-3">
-                      <i className="fas fa-check-circle text-success fs-4"></i>
-                    </div>
-                    <div>
-                      <h6 className="mb-1">Available</h6>
-                      <h4 className="mb-0">18</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="bg-white p-3 rounded-3 shadow-sm">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-warning bg-opacity-10 p-3 rounded-3 me-3">
-                      <i className="fas fa-clock text-warning fs-4"></i>
-                    </div>
-                    <div>
-                      <h6 className="mb-1">In Use</h6>
-                      <h4 className="mb-0">4</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="bg-white p-3 rounded-3 shadow-sm">
-                  <div className="d-flex align-items-center">
-                    <div className="bg-danger bg-opacity-10 p-3 rounded-3 me-3">
-                      <i className="fas fa-tools text-danger fs-4"></i>
-                    </div>
-                    <div>
-                      <h6 className="mb-1">Maintenance</h6>
-                      <h4 className="mb-0">2</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Items Section */}
-            <div className="bg-white rounded-3 shadow-sm p-4">
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <h3 className="h4 mb-0">Lab Items Categories</h3>
-                <div className="d-flex gap-2">
-                  <select className="form-select form-select-sm" style={{ width: '150px' }}>
-                    <option>All Categories</option>
-                    <option>Robotics</option>
-                    <option>Automation</option>
-                    <option>Navigation</option>
-                  </select>
-                  <select className="form-select form-select-sm" style={{ width: '150px' }}>
-                    <option>All Status</option>
-                    <option>Available</option>
-                    <option>In Use</option>
-                    <option>Maintenance</option>
-                  </select>
-                </div>
-              </div>
-
-              {loading ? (
-                <div className="text-center py-5">
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <p className="mt-2 text-muted">Loading items...</p>
-                </div>
-              ) : (
-                <div className="row g-4">
-                  {items.map((item) => (
-                    <div className="col-md-4" key={item.id}>
-                      <IotCard
-                        CardArea={item.equipment_room}
-                        CardLoc={item.equipment_location}
-                        CardTitle={item.equipment_type}
-                        CardCategory={item.equipment_category}
-                        status={item.status}
-                        lastUsed={item.lastUsed}
-                        utilization={item.utilization}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+        <div className="row">
+          <div className="col-md-6">
+            <h2 className="mt-4">Revolutionize Your Robotic Assets with RoboLend</h2>
+            <p className="mt-4">
+              Welcome to the next era in robotic inventory management. RoboLend is your strategic partner, 
+              providing a comprehensive solution for tracking, managing, and optimizing your robotic assets. 
+              Embrace precision, embrace control
+            </p>
           </div>
+          <div className="col-md-6">
+            <img 
+              src="https://otomatiks.com/wp-content/uploads/2023/08/Robotics-lab-img.jpg" 
+              className="img-fluid" 
+              alt="Robotics lab" 
+              style={{ borderRadius: '8px' }}
+            />
+          </div>
+        </div>
+
+        <div className="row mt-4">
+          <h3>Lab Items Categories</h3>
+          
+          {loading ? (
+            <div className="col-md-3">
+              <div className="spinner-border" style={{ width: '3rem', height: '3rem' }} role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            items.map((item, index) => (
+              <div className="col-md-4 mt-2" key={index}>
+                <IotCard 
+                  CardArea={item.equipment_room}
+                  CardLoc={item.equipment_location}
+                  CardTitle={item.equipment_type}
+                  CardCategory={item.equipment_category}
+                  status={item.status}
+                  lastUsed={item.lastUsed}
+                  utilization={item.utilization}
+                />
+              </div>
+            ))
+          )}
         </div>
       </div>
 
       <Footer />
 
-      <style>
-        {`
-          .bg-nav {
-            background-color: #23408f;
-          }
-          .nav-link:hover {
-            color: #00aeef !important;
-          }
-          .me-hover {
-            color: white;
-          }
-          .me-hover:hover {
-            color: #00aeef;
-          }
-          .bth {
-            padding: 10px 8px 8px 8px;
-            border-radius: 2px;
-            color: white;
-          }
-          .bth:hover {
-            background: #00aeef;
-            color: black;
-          }
-          .sidebar-container {
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-            position: sticky;
-            top: 0;
-            width: 250px;
-            height: calc(100vh - 56px);
-            overflow-y: auto;
-          }
-          .main-content {
-            min-height: calc(100vh - 56px);
-            background-color: #f8f9fa;
-          }
-          .hover-card {
-            transition: transform 0.2s ease-in-out;
-          }
-          .hover-card:hover {
-            transform: translateY(-5px);
-          }
-          .progress {
-            background-color: #e9ecef;
-          }
-          .breadcrumb-item + .breadcrumb-item::before {
-            content: ">";
-          }
-        `}
-      </style>
+      <style>{`
+        .bg-nav {
+          background: #23408f;
+        }
+        .me-hover {
+          color: white;
+        }
+        .me-hover:hover {
+          color: #00aeef;
+        }
+        .bth {
+          padding: 10px 8px 8px 8px;
+          border-radius: 2px;
+          color: white;
+        }
+        .bth:hover {
+          background: #00aeef;
+          color: black;
+        }
+        .hover-card {
+          transition: transform 0.2s ease-in-out;
+        }
+        .hover-card:hover {
+          transform: translateY(-5px);
+        }
+      `}</style>
     </div>
   );
 };

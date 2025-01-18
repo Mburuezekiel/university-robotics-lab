@@ -103,7 +103,7 @@ const Profileview = () => {
 
       {/* Stats Cards */}
       <div className="row mb-4">
-        <div className="col-md-3">
+        <div className="col-md-6">
           <div className="card shadow-sm">
             <div className="card-body p-3">
               <div className="d-flex align-items-center">
@@ -118,7 +118,7 @@ const Profileview = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <div className="card shadow-sm">
             <div className="card-body p-3">
               <div className="d-flex align-items-center">
@@ -133,36 +133,7 @@ const Profileview = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-3">
-          <div className="card shadow-sm">
-            <div className="card-body p-3">
-              <div className="d-flex align-items-center">
-                <div className="bg-info bg-opacity-10 p-3 rounded-3 me-3">
-                  <i className="fas fa-certificate text-info fs-4"></i>
-                </div>
-                <div>
-                  <h6 className="mb-1">Certifications</h6>
-                  <h4 className="mb-0">{profile.certifications.length}</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card shadow-sm">
-            <div className="card-body p-3">
-              <div className="d-flex align-items-center">
-                <div className="bg-warning bg-opacity-10 p-3 rounded-3 me-3">
-                  <i className="fas fa-clock text-warning fs-4"></i>
-                </div>
-                <div>
-                  <h6 className="mb-1">Experience</h6>
-                  <h4 className="mb-0">2+ years</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
 
       {/* Main Content */}
